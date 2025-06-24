@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>hello world</title>
+  <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+  <style>body { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }</style>
+</head>
+<body>
+  <h1>Bouncing Ball Animation</h1>
+  <canvas id="ballCanvas" data-processing-sources="ball.pde"></canvas>
+  <script type="application/processing" id="ball.pde">
+    float x = 50;
+    float y = 50;
+    float dx = 3;
+    float dy = 2;
+    float radius = 30;
+    void setup() {
+      size(400, 300);
+      smooth();
+    }
+    void draw() {
+      background(240);
+      fill(0, 150, 255);
+      ellipse(x, y, radius*2, radius*2);
+      x += dx;
+      y += dy;
+      if (x > width - radius || x < radius) dx *= -1;
+      if (y > height - radius || y < radius) dy *= -1;
+    }
+  </script>
+</body>
+</html>
