@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>hello world</title>
+  <title>10 balls</title>
   <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
   <style>
     body {
@@ -15,22 +15,38 @@
   </style>
 </head>
 <body>
-  <h1>Bouncing Ball Animation</h1>
+  <h1>10 Bouncing Balls Animation</h1>
   <canvas id="ballCanvas" width="400" height="300"></canvas>
   <script type="application/processing" data-processing-target="ballCanvas">
-    float x = 50, y = 50, dx = 3, dy = 2, radius = 30;
+    int numBalls = 10;
+    float[] x = new float[numBalls];
+    float[] y = new float[numBalls];
+    float[] dx = new float[numBalls];
+    float[] dy = new float[numBalls];
+    float[] radius = new float[numBalls];
+    color[] colors = new color[numBalls];
     void setup() {
       size(400, 300);
       smooth();
+      for (int i = 0; i < numBalls; i++) {
+        x[i] = random(40, width-40);
+        y[i] = random(40, height-40);
+        dx[i] = random(2, 4) * (random(1) > 0.5 ? 1 : -1);
+        dy[i] = random(2, 4) * (random(1) > 0.5 ? 1 : -1);
+        radius[i] = random(15, 30);
+        colors[i] = color(random(255), random(255), random(255));
+      }
     }
     void draw() {
       background(240);
-      fill(0, 150, 255);
-      ellipse(x, y, radius*2, radius*2);
-      x += dx;
-      y += dy;
-      if (x > width - radius || x < radius) dx *= -1;
-      if (y > height - radius || y < radius) dy *= -1;
+      for (int i = 0; i < numBalls; i++) {
+        fill(colors[i]);
+        ellipse(x[i], y[i], radius[i]*2, radius[i]*2);
+        x[i] += dx[i];
+        y[i] += dy[i];
+        if (x[i] > width - radius[i] || x[i] < radius[i]) dx[i] *= -1;
+        if (y[i] > height - radius[i] || y[i] < radius[i]) dy[i] *= -1;
+      }
     }
   </script>
 </body>
